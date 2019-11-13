@@ -25,12 +25,20 @@ function App() {
   };
 
   const editMember = memberEditted => {
-    const edittedTeam = teamMembers.filter(teamMember => {
-      return teamMember.id !== memberEditted.id;
-    });
+    const edittedTeam = teamMembers.filter(
+      teamMember => teamMember.id !== memberEditted.id
+    );
 
     setTeamMembers([...edittedTeam, memberEditted]);
     setMemberToEdit(null);
+  };
+
+  const deleteMember = memberToDelete => {
+    const newTeam = teamMembers.filter(
+      teamMember => teamMember.id !== memberToDelete.id
+    );
+
+    setTeamMembers([...newTeam]);
   };
 
   return (
@@ -44,6 +52,7 @@ function App() {
       <TeamMembers
         teamMembers={teamMembers}
         setMemberToEdit={setMemberToEdit}
+        deleteMember={deleteMember}
       />
     </div>
   );
