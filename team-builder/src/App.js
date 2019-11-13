@@ -24,12 +24,25 @@ function App() {
     setTeamMembers([...teamMembers, newTeamMember]);
   };
 
-  const editMember = memberEditted => {
-    const edittedTeam = teamMembers.filter(
-      teamMember => teamMember.id !== memberEditted.id
-    );
+  // const editMember = memberEditted => {
+  //   const edittedTeam = teamMembers.filter(
+  //     teamMember => teamMember.id !== memberEditted.id
+  //   );
 
-    setTeamMembers([...edittedTeam, memberEditted]);
+  //   setTeamMembers([...edittedTeam, memberEditted]);
+  //   setMemberToEdit(null);
+  // };
+
+  const editMember = memberEditted => {
+    const edittedTeam = teamMembers.map(teamMember => {
+      if (teamMember.id === memberEditted.id) {
+        return memberEditted;
+      } else {
+        return teamMember;
+      }
+    });
+
+    setTeamMembers([...edittedTeam]);
     setMemberToEdit(null);
   };
 
