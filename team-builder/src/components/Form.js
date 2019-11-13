@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Form = props => {
   const [teamMember, setTeamMember] = useState({
@@ -6,6 +6,12 @@ const Form = props => {
     email: "",
     role: ""
   });
+
+  useEffect(() => {
+    if (props.memberToEdit) {
+      setTeamMember(props.memberToEdit);
+    }
+  }, [props.memberToEdit]);
 
   const handleChanges = e => {
     setTeamMember({
@@ -16,7 +22,11 @@ const Form = props => {
 
   const submitForm = e => {
     e.preventDefault();
-    props.addNewTeamMember(teamMember);
+    if (props.memberToEdit) {
+      props.editMember(teamMember);
+    } else {
+      props.addNewTeamMember(teamMember);
+    }
     setTeamMember({
       name: "",
       email: "",
@@ -34,6 +44,7 @@ const Form = props => {
         value={teamMember.name}
         onChange={handleChanges}
       />
+      <br />
       <label htmlFor="email">Email</label>
       <input
         id="email"
@@ -42,6 +53,7 @@ const Form = props => {
         value={teamMember.email}
         onChange={handleChanges}
       />
+      <br />
       <label htmlFor="role">Role</label>
       <select
         id="role"
